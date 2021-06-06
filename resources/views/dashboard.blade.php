@@ -10,7 +10,7 @@
 <div class="row container mt-12">
     <div class="col-5" align="center"><h1 class="text-3xl font-bold">File Manager</h1></div>
     <div class="col-6" align="right">
-        <form action="{{ route('file.upload.post') }}" method="POST" enctype="multipart/form-data">
+        <form action="/upload" method="POST" enctype="multipart/form-data">
             @csrf
                 <table><tr>
                     <td><input type="file" name="file" class="form-control"></td>
@@ -24,31 +24,36 @@
  
 
     </x-slot>
-
+    @if(isset($data))
    <div class="mt-8 bg-white shadow-sm sm:rounded-lg p-6">
     <table class="table table-stripped table-bordered" style="width: 80%;" align="center">
         <tr class="bg-black text-white">
-            <th style="width: 50%; text-align: center;">File Name</th>
+            <th style="width: 5%;text-align: center;">ID</th>
+            <th style="width: 45%; text-align: center;">File Name</th>
             <th style="width: 20%;text-align: center;">Size</th>
             <th style="width: 30%;text-align: center;">Actions</th>
        
         </tr>
         
+             @foreach($data as $data1)
              <tr>
-            @if ($name = Session::get('file'))
-             <td  style="width: 50%;text-align: center;">{{$name}}</td>
-            @endif
-            @if ($sizee = Session::get('size'))
-             <td style="width: 20%;">{{$sizee}}</td>
-            @endif
+             <td  style="width:5%">{{$data1->id}}</td>
+             <td  style="width: 45%;text-align: center;">{{$data1->file}}</td>
+             <td style="width: 20%;">{{$data1->size}}</td>
              <td style="width: 30%;">
-                <a class="px-5 py-2 bg-gray-400 border-blue-500 border text-black font-bold rounded transition duration-300 hover:bg-blue-700 hover:no-underline hover:text-white pl-16" href="">Rename</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                <a class="px-5 py-2 bg-red-500 hover:no-underline border-blue-500 border text-black font-bold rounded transition duration-300 hover:bg-blue-700 hover:text-white" href="file-delete">Delete</a></td>
+               
+             <a class="px-5 py-2 inline-flex bg-gray-400 border-blue-500 border text-black font-bold rounded transition duration-300 hover:bg-blue-700 hover:no-underline hover:text-white pl-16" href="">Rename</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="px-5 py-2 inline-flex bg-red-500 hover:no-underline border-blue-500 border text-black font-bold rounded transition duration-300 hover:bg-blue-700 hover:text-white" href='delete/{{ $data1->id }}'>Delete</a></td>
+            
             </tr>
-       
+       @endforeach
         
     </table>
      
    </div>
+   @else
+    <div>No data available</div>
+    @endif
+
 
 </x-app-layout>
