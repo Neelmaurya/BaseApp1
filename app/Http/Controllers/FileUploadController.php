@@ -22,26 +22,25 @@ public function fileUpload()
         $request->validate([
             'file' => 'required|mimes:jpg,ppt,css,zip,pdf,xlx,csv,doc,png|max:8192',
         ]);
-  
         $files = $request->file->getClientOriginalName();
         $fileSize = $request->file->getSize();
-         $filepath = $request->file->getRealPath();  
-   
+        $filepath = $request->file->getRealPath();  
         $request->file->move(public_path('uploads'), $files);
-   
         return back()
-            ->with('success')
             ->with('file',$files)
             ->with('size',$fileSize);
-   
     }
 
-          public function distroy(Request $request)
+    public function distroy(Request $request)
     {
-        if(File::exists(public_path('uploads/'))){
-            File::delete(public_path('uploads/'));
-              return view('dashboard');
-        }else{
+        $file='/public/uploads/';
+        $path = str_replace('\\','/', public_path());
+        if(file_exists($path.$file)){
+            unlink($path.$file);
+            $file->delete();
+            return view('dashboard');
+        }
+        else{
             return view('dashboard');
         }
     }

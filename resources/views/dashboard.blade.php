@@ -25,16 +25,16 @@
 
     </x-slot>
    <div class="mt-8 bg-white shadow-sm sm:rounded-lg p-6">
-    <table class="table table-stripped table-bordered" style="width: 80%;" align="center">
+    <table class="table table-stripped table-bordered border-2 border-black" style="width: 80%;" align="center">
         <tr class="bg-black text-white">
             <th style="width: 50%; text-align: center;">File Name</th>
             <th style="width: 20%;text-align: center;">Size</th>
             <th style="width: 30%;text-align: center;">Actions</th>
        
         </tr>
-        <tr>
+        <tr class="border-2 border-black">
             @if($name = Session::get('file'))
-             <td  style="width: 45%;text-align: center;">{{$name}}</td>
+             <td  style="width: 45%;text-align: left;">{{$name}}</td>
             @endif
             @if($sizes = Session::get('size'))
              <td style="width: 20%;text-align: right;">{{$sizes}}Kb</td>
