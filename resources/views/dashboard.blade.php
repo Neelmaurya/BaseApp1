@@ -41,10 +41,8 @@
             @endif
              <td style="width: 30%;">
                
-            <a class="px-5 py-2 inline-flex bg-gray-400 border-blue-500 border text-black font-bold rounded transition duration-300 hover:bg-blue-700 hover:no-underline hover:text-white pl-16" href="">Rename</a>&nbsp;&nbsp;&nbsp;&nbsp;
-            @if($name = Session::get('file'))
+            <a class="px-5 py-2 inline-flex bg-gray-400 border-blue-500 border text-black font-bold rounded transition duration-300 hover:bg-blue-700 hover:no-underline hover:text-white pl-16" href="file-rename{{ $name }}">Rename</a>&nbsp;&nbsp;&nbsp;&nbsp;
             <a class="px-5 py-2 inline-flex bg-red-500 hover:no-underline border-blue-500 border text-black font-bold rounded transition duration-300 hover:bg-blue-700 hover:text-white" href='file-delete{{ $name }}'>Delete</a>
-            @endif
             </td>
             
             </tr>

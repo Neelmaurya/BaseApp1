@@ -42,4 +42,21 @@ public function fileUpload()
             dd("File not Found");
         }
     }
+    
+    public function rename($name)
+    {
+        $filePath='uploads/'.$name;
+        $newName= 'uploads/'."File.pdf";
+        if(file_exists($newName)){
+            echo "File Renaming error";
+        }
+        else{
+            if(rename($filePath, $newName)){
+                return redirect('dashboard');
+            }
+            else{
+                echo"File Already Exists";
+            }
+        }
+    }
 }
