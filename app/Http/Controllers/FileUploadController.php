@@ -20,7 +20,7 @@ public function fileUpload()
     public function fileUploadPost(Request $request)
     {
         $request->validate([
-            'file' => 'required|mimes:jpg,ppt,css,zip,pdf,xlx,csv,doc|max:8192',
+            'file' => 'required|mimes:jpg,ppt,css,zip,pdf,xlx,csv,doc,png|max:8192',
         ]);
   
         $files = $request->file->getClientOriginalName();
@@ -30,7 +30,7 @@ public function fileUpload()
         $request->file->move(public_path('uploads'), $files);
    
         return back()
-            ->with('success','You have successfully uploaded the file.')
+            ->with('success')
             ->with('file',$files)
             ->with('size',$fileSize);
    

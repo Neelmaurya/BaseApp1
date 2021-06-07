@@ -37,7 +37,7 @@
              <td  style="width: 45%;text-align: center;">{{$name}}</td>
             @endif
             @if($sizes = Session::get('size'))
-             <td style="width: 20%;">{{$sizes}}</td>
+             <td style="width: 20%;text-align: right;">{{$sizes}}Kb</td>
             @endif
              <td style="width: 30%;">
                
