@@ -31,17 +31,15 @@ public function fileUpload()
             ->with('size',$fileSize);
     }
 
-    public function distroy(Request $request)
+    public function distroy($name)
     {
-        $file='/public/uploads/';
-        $path = str_replace('\\','/', public_path());
-        if(file_exists($path.$file)){
-            unlink('uploads/'.$file);
-            $file->delete();
-            return view('dashboard');
+        $filePath='uploads/'.$name;
+        if(file_exists(public_path($filePath))){
+            unlink(public_path($filePath));
+            return redirect('dashboard');
         }
         else{
-            return view('dashboard');
+            dd("File not Found");
         }
     }
 }

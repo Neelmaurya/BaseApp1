@@ -27,7 +27,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::get('file-upload', [FileUploadController::class, 'fileUpload'])->name('file.upload');
 Route::post('file-upload', [FileUploadController::class, 'fileUploadPost'])->name('file.upload.post');
 
-Route::get('file-delete', [FileUploadController::class, 'distroy']);
+Route::get('file-delete{name}', [FileUploadController::class, 'distroy']);
 
 
 
