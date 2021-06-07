@@ -36,7 +36,7 @@ public function fileUpload()
         $file='/public/uploads/';
         $path = str_replace('\\','/', public_path());
         if(file_exists($path.$file)){
-            unlink($path.$file);
+            unlink('uploads/'.$file);
             $file->delete();
             return view('dashboard');
         }
