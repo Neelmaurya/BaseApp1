@@ -4,5 +4,5 @@
 #Step-3. Then edit in .env file to write database information.
 #Step-4. Create a Database Named “baseapp1”.
 #Step-5. Then migrate the project. “php artisan migrate”
-#Step-6. After the migration Register on the and login.
+#Step-6. After the migration Register on the project and login.
 #Step-7. After login Upload any file.
