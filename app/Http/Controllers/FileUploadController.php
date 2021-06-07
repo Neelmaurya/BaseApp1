@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Post;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 //use App\Helpers\Helpers;
 
 class FileUploadController extends Controller
 {
-    
-    public function fileUpload()
+public function fileUpload()
     {
         return view('fileUpload');
     }
@@ -19,18 +20,18 @@ class FileUploadController extends Controller
     public function fileUploadPost(Request $request)
     {
         $request->validate([
-            'file' => 'required|mimes:pdf,xlx,csv|max:2048',
+            'file' => 'required|mimes:jpg,ppt,css,zip,pdf,xlx,csv,doc|max:8192',
         ]);
   
-        $fileName = $request->file->getClientOriginalName();
+        $files = $request->file->getClientOriginalName();
         $fileSize = $request->file->getSize();
          $filepath = $request->file->getRealPath();  
    
-        $request->file->move(public_path('uploads'), $fileName);
+        $request->file->move(public_path('uploads'), $files);
    
         return back()
-            ->with('success','You have successfully upload file.')
-            ->with('file',$fileName)
+            ->with('success','You have successfully uploaded the file.')
+            ->with('file',$files)
             ->with('size',$fileSize);
    
     }

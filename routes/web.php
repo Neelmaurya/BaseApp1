@@ -28,7 +28,7 @@ Route::get('file-upload', [FileUploadController::class, 'fileUpload'])->name('fi
 Route::post('file-upload', [FileUploadController::class, 'fileUploadPost'])->name('file.upload.post');
 
 Route::get('file-delete', [FileUploadController::class, 'distroy']);
-Route::get('file-rename', [FileUploadController::class, 'renmae']);
+
 
 
 
