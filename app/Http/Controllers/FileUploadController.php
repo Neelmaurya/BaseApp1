@@ -52,7 +52,9 @@ public function fileUpload()
         }
         else{
             if(rename($filePath, $newName)){
-                return redirect('dashboard');
+            return back()
+                ->with('file',$newName);
+               // ->with('size',$fileSize);
             }
             else{
                 echo"File Already Exists";
