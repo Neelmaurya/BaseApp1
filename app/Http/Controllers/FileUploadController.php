@@ -19,21 +19,40 @@ public function fileUpload()
     
     public function fileUploadPost(Request $request)
     {
-        $request->validate([
+        if ($request->validate([
             'file' => 'required|mimes:jpg,ppt,css,zip,pdf,xlx,csv,doc,png|max:8192',
-        ]);
+        ])){
         $files = $request->file->getClientOriginalName();
         $fileSize = $request->file->getSize();
         $filepath = $request->file->getRealPath();  
-        $request->file->move(public_path('uploads'), $files);
-        return back()
-            ->with('file',$files)
-            ->with('size',$fileSize);
+        $request->file->move(public_path('storage'), $files);
+        //return Storage::putFile('public_path',$request->file(upload));
+        return redirect('dashboard');
+        }else{
+            return 'No file Selected';
+        }
     }
 
-    public function distroy($name)
+    public function show()
     {
-        $filePath='uploads/'.$name;
+        $directory=storage_path('public');
+        print_r($directory);
+        echo "<br>";
+        $dirName = array();
+        $directories = Storage::disk('public')->listContents();
+        print_r($directories);
+        foreach ($directories as $a){
+            $dirName = $a['path'];
+            $dirSize = $a['size'];
+            echo $dirName.$dirSize."<br>";
+
+        }
+    }
+
+    public function distroy($dirBname)
+    {
+        //$filePath='storage/'.$dirBname;
+        $filePath='storage/'.'7.jpg';
         if(file_exists(public_path($filePath))){
             unlink(public_path($filePath));
             return redirect('dashboard');
@@ -43,18 +62,17 @@ public function fileUpload()
         }
     }
     
-    public function rename($name)
+    public function rename($dirName)
     {
-        $filePath='uploads/'.$name;
-        $newName= 'uploads/'."File.pdf";
+        //$filePath='storage/'.$dirName;
+        $filePath='storage/'.'Sunil Resume L.pdf';
+        $newName= 'storage/'."File.pdf";
         if(file_exists($newName)){
             echo "File Renaming error";
         }
         else{
             if(rename($filePath, $newName)){
-            return back()
-                ->with('file',$newName);
-               // ->with('size',$fileSize);
+            return redirect('dashboard');
             }
             else{
                 echo"File Already Exists";

@@ -20,10 +20,10 @@
         </form>
     </div>
 </div>
-
- 
-
     </x-slot>
+
+<hr>
+
    <div class="mt-8 bg-white shadow-sm sm:rounded-lg p-6">
     <table class="table table-stripped table-bordered border-2 border-black" style="width: 80%;" align="center">
         <tr class="bg-black text-white">
@@ -32,20 +32,34 @@
             <th style="width: 30%;text-align: center;">Actions</th>
        
         </tr>
-        <tr class="border-2 border-black">
-            @if($name = Session::get('file'))
-             <td class="font-semibold pt-4 text-lg"  style="width: 45%;text-align: left;">{{$name}}</td>
-            @endif
-            @if($sizes = Session::get('size'))
-             <td class="font-semibold pt-4 text-lg" style="width: 20%;text-align: right;">{{$sizes}}byte</td>
-            @endif
-             <td style="width: 30%;">
-               
-            <a class="px-5 py-2 inline-flex bg-gray-400 border-blue-500 border text-black font-bold rounded transition duration-300 hover:bg-blue-700 hover:no-underline hover:text-white pl-16" href="file-rename{{ $name }}">Rename</a>&nbsp;&nbsp;&nbsp;&nbsp;
-            <a class="px-5 py-2 inline-flex bg-red-500 hover:no-underline border-blue-500 border text-black font-bold rounded transition duration-300 hover:bg-blue-700 hover:text-white" href='file-delete{{ $name }}'>Delete</a>
-            </td>
+        <tr>
+            <td class="font-bold pt-4 text-2xl"><?php $directory=storage_path('public'); echo $directory; ?></td>
+        </tr>
+        
+        <?php
+        $dirName = array();
+        $directories = Storage::disk('public')->listContents();
+        //print_r($directories);
+        foreach ($directories as $a){
+            $dirName = $a['path'];
+            $dirSize = $a['size'];
+            echo '<tr class="border-2 border-black">';
+            echo '<td class="font-semibold pt-4 text-lg"  style="width: 45%;text-align: left;">'.$dirName.'</td>';
+    
+
+            echo '<td class="font-semibold pt-4 text-lg" style="width: 20%;text-align: right;">'.$dirSize.'</td>';
+        
+             echo '<td style="width: 30%;">'. 
+            '<a class="px-5 py-2 inline-flex bg-gray-400 border-blue-500 border text-black font-bold rounded transition duration-300 hover:bg-blue-700 hover:no-underline hover:text-white pl-16" href="file-rename{{ $dirName }}">Rename</a>&nbsp;&nbsp;&nbsp;&nbsp;'.
+            '<a class="px-5 py-2 inline-flex  bg-red-500 hover:no-underline border-blue-500 border text-black font-bold rounded transition duration-300 hover:bg-blue-700 hover:text-white" href="file-delete{{ $dirBname }}">Delete</a>
+            </td>';
             
-            </tr>
+            echo "</tr>";
+    
+        }
+        
+     ?>       
+            
         
     </table>
 </div>
